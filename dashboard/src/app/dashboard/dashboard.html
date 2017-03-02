@@ -1,0 +1,185 @@
+<div class="dashboard">
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand">
+          <ul class="list-inline">
+            <li><span>Monitor.</span></li>
+            <li><span>社区版</span></li>
+          </ul>
+        </a>
+      </div>
+      <div>
+        <ul class="nav navbar-nav pull-right">
+          <li *ngIf="!tips.latest"><a style="font-size: 12px;color: #f00;text-decoration: underline;" target="_blank" href="{{tips.url}}">{{tips.msg}}</a></li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown">
+              {{username.name}}
+              <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="/logout">退出</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <section class="wrapper-content">
+    <div class="dashboard">
+      <div class="row">
+        <div class="col-md-7" style="padding:0;">
+          <div class="content">
+            <ul class="list-inline" style="margin-left:0;">
+              <li class="content-item item-1" style="height: 361px;">
+                  <span style="padding-left:15px;">数据采集速率</span>
+                  <div class="time-dropdown">
+                    <div class="dropdown">
+                      <a class="icon-refresh" data-toggle="dropdown">
+                      </a>
+                      <div class="dropdown-menu">
+                        <h5>刷新周期</h5>
+                        <div class="exam" (click)="getQps(qps)" *ngFor="let qps of qpsTimes">
+                            <input type="radio" name="qps" [class.Active]="qps.flag"/>
+                            <a><i></i>{{qps.value}}</a>
+                        </div>
+                    </div>
+                  </div>
+                  </div>
+                  <h1>
+                    <div class="circle">
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                    </div>
+                    <div>{{Qps}}</div>
+                  </h1>
+                  <p style="position:absolute;bottom:0;right:10px;font-size:4px;color:#dbdbdb;">已更新: {{updateQps}}</p>
+              </li>
+              <li class="content-item item-2">
+                <div class="sub-item">
+                  <span>当前故障数量</span>
+                  <div class="time-dropdown">
+                    <div class="dropdown">
+                      <a class="icon-refresh" data-toggle="dropdown">
+                      </a>
+                      <div class="dropdown-menu ">
+                        <h5>刷新周期</h5>
+                        <div class="exam" (click)="getProblemCount(data)" *ngFor="let data of problemCountTimes">
+                          <input type="radio" name="ProblemCount" [class.Active]="data.flag"/>
+                          <a><i></i>{{data.value}}</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <span class="cmdb-icon icon-dc"></span>
+                    <span style="left:20px;position: relative; top:15px;font-size:2.5vw;">{{problemNum}}</span>
+                  </div>
+                  <p style="position:absolute; bottom:0;right:10px;font-size:4px;color:#dbdbdb;">已更新: {{updateProblemNum}}</p>
+                </div>
+                <div class="sub-item">
+                  <span>当前故障设备</span>
+                  <div class="time-dropdown">
+                    <div class="dropdown">
+                      <a class="icon-refresh" data-toggle="dropdown">
+                      </a>
+                      <div class="dropdown-menu ">
+                        <h5>刷新周期</h5>
+                        <div class="exam" (click)="getProblemCount(data)" *ngFor="let data of problemCountTimes">
+                          <input type="radio" name="ProblemCount" [class.Active]="data.flag"/>
+                          <a><i></i>{{data.value}}</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <span class="cmdb-icon icon-dc"></span>
+                    <span style="left:20px;position: relative; top:15px;font-size:2.5vw;">{{deviceNum}}</span>
+                  </div>
+                  <p style="position:absolute; bottom:0;right:10px;font-size:4px;color:#dbdbdb;">已更新: {{updateProblemNum}}</p>
+                </div>
+              </li>
+              <li class="content-item item-3">
+                <div class="traffic-level">
+                  <div>
+                    <span>当前故障级别</span>
+                    <div class="time-dropdown">
+                      <div class="dropdown">
+                        <a class="icon-refresh" data-toggle="dropdown">
+                        </a>
+                        <div class="dropdown-menu ">
+                          <h5>刷新周期</h5>
+                          <div class="exam"  (click)="getProblemPriorityCount(data)" *ngFor="let data of ProblemPriorityCounts">
+                            <input type="radio" name="ProblemPriority" [class.Active]="data.flag"/>
+                            <a><i></i>{{data.value}}</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <h5 *ngIf="ProblemPriorityError" style="color:#a1a1a1">当前条件下没有查询到数据</h5>
+                  <div *ngIf="!ProblemPriorityError" [ng2-echarts]="chartData" style="width:100%; height:300px;top:0px;left:20%;"></div>
+                  <ol  *ngIf="!ProblemPriorityError" class="list-unstyled chartData">
+                    <li *ngFor="let data of chartDataLevel">
+                      <i [ngStyle]="ChartDataColor(data.color)"></i>{{data.name}}&nbsp;&nbsp;&nbsp;&nbsp;{{data.value}}</li>
+                  </ol>
+                  <p style="position: absolute;bottom:5px;right:10px;font-size:4px;color:#dbdbdb;">已更新: {{updateChartData}}</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="content" style="margin-top:-25px;">
+            <div class="content-item" style="width:99%;">
+              <div style="padding-left:15px;">
+                <span>故障数量趋势</span>
+                <ul class="list-inline time-dropdown">
+                  <li class="select-item">
+                    <div data-toggle="dropdown" class="select-content" style="width:100px;">
+                      <span style="width:60%">{{trafficLevel.value}}</span>
+                      <i class="caret"></i>
+                    </div>
+                    <ul class="dropdown-menu noneSelected" style="width:100px;">
+                      <li  *ngFor="let pow of powers"  (click)="selected(pow)" style="color:#666">
+                        <a>
+                          <span>{{pow.value}}</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="dropdown">
+                        <a class="icon-refresh" data-toggle="dropdown">
+                        </a>
+                        <div class="dropdown-menu ">
+                          <h5>刷新周期</h5>
+                          <div class="exam" (click)="getProblemTrendsCount(data)" *ngFor="let data of ProblemTrendsCounts ">
+                            <input type="radio" name="ProblemTrend" [class.Active]="data.flag"/>
+                            <a><i></i>{{data.value}}</a>
+                          </div>
+                        </div>
+                  </li>
+                </ul>
+                <h5 *ngIf="ProblemTrendsError" style="color:#a1a1a1">当前条件下没有查询到数据</h5>
+                <div *ngIf="!ProblemTrendsError" [ng2-echarts]="LineData" style="width:100%;height: 305px;"></div>
+                <p style="position: absolute;bottom:1px;right:10px;font-size:4px;color:#dbdbdb;">已更新: {{updateLineData}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-5" style="padding:0;">
+          <div class="content">
+            <div class="content-item" style="width:99%;height:726px;overflow:hidden; position: relative;">
+              <!--timeline-->
+              <timeline></timeline>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<footer style="margin-top:10px;width:330px;">
+  <a href="http://www.oneoaas.com" target="_blank" style="color: #749aff;">Copyright &copy;OneOaaS |上海皓西信息科技有限公司</a>
+</footer>
+

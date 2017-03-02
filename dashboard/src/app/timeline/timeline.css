@@ -1,0 +1,95 @@
+.timeline{
+  width:100%;
+  height:645px;
+  margin-top:20px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.timeline .timeline-item{
+  height:60px;
+  width:700px;
+  text-overflow:ellipsis;
+}
+
+.timeline .timeline-item .item{
+  vertical-align: top;
+}
+
+.timeline .timeline-item .item .item-1 {
+  text-align: end;
+}
+
+.timeline .timeline-item .item .item-1 h5{
+  width: 80px;
+  color:#a1a1a1;
+}
+
+.timeline .timeline-item .item .item-2{
+  width:100%;
+}
+
+.timeline .timeline-item .item .item-2 h5{
+  width:500px;
+  word-break: break-all;
+}
+
+.timeline .timeline-item .item.item-icon{
+  padding-top: 10px;
+}
+
+.timeline .timeline-item .item.item-icon .icon{
+  width:10px;
+  height:10px;
+  border-radius: 50%;
+  border: 1px solid #f00;
+  position: relative;
+}
+
+.timeline .timeline-item .item.item-icon .icon:after{
+  position: absolute;
+  content: '';
+  width: 2px;
+  height: 50px;
+  background-color: #eeeeee;
+  top: 8px;
+  left: 2px;
+}
+
+.select-item{
+  vertical-align:top;
+  position:relative;
+}
+
+.select-item .select-content{
+  width:100px;
+  height:22px;
+  border:1px solid #ececec;
+  display:inline-block;
+  padding-left:20px;
+}
+
+.select-item .select-content span:nth-child(1){
+  display: inline-block;
+  width:5px;
+  margin-bottom: 2px;
+  height:5px;
+  border-radius: 50%;
+}
+
+.select-item .select-content span:nth-child(1){
+  margin-left:1px;
+}
+
+.noneSelected{
+  top:20px;
+  left: 5px; border-radius: 0; width:100px; padding-top:0;
+  border: 1px solid #ececec; -webkit-box-shadow: 0 6px 12px #fff;box-shadow: 0 6px 12px #fff;
+  border-top:0;
+}
+
+.noneSelected li{
+  cursor: pointer;
+}
+
+

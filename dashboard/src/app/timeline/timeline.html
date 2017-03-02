@@ -1,0 +1,75 @@
+<span>当前故障列表 </span>
+<ul class="list-inline time-dropdown">
+    <li class="select-item">
+        <div data-toggle="dropdown" class="select-content" style="width:60px; padding-left:15px;">
+            <span>{{DataNum}}</span>
+            <i class="caret" style="margin-left:18px;"></i>
+        </div>
+        <ul class="dropdown-menu noneSelected" style="width:60px;">
+            <li  *ngFor="let data of DataNums"  (click)="getDataNum(data.id)" style="color:#666">
+                <a>
+                    <span>{{data.value}}</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li class="select-item" >
+        <div data-toggle="dropdown" class="select-content">
+            <span [ngStyle]="setTip(trafficLevel.color)"></span>
+            <span>{{trafficLevel.value}}</span>
+            <i class="caret"></i>
+        </div>
+        <ul class="dropdown-menu noneSelected">
+            <li *ngFor="let pow of powers" (click)="selected(pow)" style="color:#666">
+                <a>
+                    <span [ngStyle]="setTipStyle(pow.color)"></span>
+                    <span [ngStyle]="setColor(pow.color)">{{pow.value}}</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li class="dropdown">
+        <a class="icon-refresh" data-toggle="dropdown">
+        </a>
+        <div class="dropdown-menu">
+            <h5>刷新周期</h5>
+            <div class="exam" (click)="getTimeLine(data)" *ngFor="let data of dataTimes">
+                <input type="radio" name="TimeLine" [class.Active]="data.flag"/>
+                <a><i></i>{{data.value}}</a>
+            </div>
+        </div>
+    </li>
+</ul>
+<div class="timeline" >
+    <h5 *ngIf="timelineError" style="color:#a1a1a1">当前条件下没有查询到数据</h5>
+    <div class="timeline-item" *ngFor="let item of items">
+        <ul class="list-inline">
+            <li class="item">
+                <div class="item-1">
+                    <h5>{{item.daytime}}</h5>
+                </div>
+            </li>
+            <li class="item item-icon">
+                <div class="icon" [ngStyle]="setStyles(item.color)"></div>
+            </li>
+            <li class="item">
+                <div class="item-2">
+                    <h5 [ngStyle]="setColor(item.color)">{{item.host}}: {{item.name}}</h5>
+                    <ul class="list-inline">
+                        <li style="vertical-align:top;color:#a1a1a1;width: 155px;">持续时间: {{item.age}}</li>
+                        <li style="position: relative;width:150px; margin-left:30px;text-overflow: ellipsis;white-space:nowrap;overflow: hidden;;color:#dbdbdb">
+                            <i class="icon-bs-rs"></i>
+                            <span [tooltip]="myTooltip">主机组：{{item.group}}</span>
+                            <div style="width:1000px; height:50px;">
+                                <tooltip-content #myTooltip>
+                                    {{item.group}}
+                                </tooltip-content>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<p style="position: absolute;bottom: 1px;;right:20px;font-size:4px;color:#dbdbdb;">已更新:{{updateTimeLine}}</p>

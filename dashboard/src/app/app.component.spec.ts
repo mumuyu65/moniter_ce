@@ -3,6 +3,7 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 
+//测试用例部分
 describe('AppComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
