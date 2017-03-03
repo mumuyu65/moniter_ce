@@ -15,12 +15,15 @@ import {TooltipModule} from "ng2-tooltip";
 
 import { CookieService } from 'angular2-cookie/services/cookies.service';
 
+import{ AlertModule } from 'ng2-bootstrap';
+
 @NgModule({
   declarations: [AppComponent,Ng2Echarts,DashboardComponent,TimelineComponent],// 注入模块
   imports: [BrowserModule,
     FormsModule,
     HttpModule,
-    TooltipModule
+    TooltipModule,
+    AlertModule.forRoot()
   ],
   providers: [CookieService],//注入服务
   bootstrap: [AppComponent]
